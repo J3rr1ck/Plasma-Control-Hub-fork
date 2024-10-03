@@ -33,7 +33,9 @@ Item {
     }
     return temp; // Default is Fahrenheit
   }
-
+  function updateWeather() {
+    executeCommand()
+}
   property string latitude: (useCoordinatesIp === "true") ? latitudeIP : (latitudeC === "0") ? latitudeIP : latitudeC
   property string longitud: (useCoordinatesIp === "true") ? longitudIP : (longitudeC === "0") ? longitudIP : longitudeC
 

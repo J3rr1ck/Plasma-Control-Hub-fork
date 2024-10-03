@@ -301,7 +301,7 @@ Item {
         return "Language not supported";
     }
 }
-    property string command: "bash $HOME/.local/share/plasma/plasmoids/Plasma.Control.Hub/contents/ui/lib/getDataWeather.sh"+" "+latitude+" "+longitud+" "+day+" "+therday
+    property string command: "bash $HOME/.local/share/plasma/plasmoids/Plasma.Control.Hub/contents/ui/lib/getDataWeather.sh " + latitude + " " + longitud + " " + day + " " + therday + " " + plasmoid.configuration.temperatureUnit
     property string useCoordinatesIp: plasmoid.configuration.useCoordinatesIp
     property string latitudeC: plasmoid.configuration.latitudeC
     property string longitudeC: plasmoid.configuration.longitudeC

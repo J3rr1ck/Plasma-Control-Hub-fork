@@ -116,7 +116,12 @@ PlasmoidItem {
             }
         }
     }
-
+    Connections {
+    target: plasmoid.configuration
+    function onTemperatureUnitChanged() {
+        weatherData.updateWeather()
+    }
+}
     fullRepresentation: Item {
         id: menu
         implicitHeight: brillo.visible ? 410 : 380

@@ -81,7 +81,7 @@ RowLayout {
     }
     ComboBox {
         id: temperatureUnitCombo
-        model: ["Fahrenheit", "Celsius", "Kelvin"]
+        model: ["fahrenheit", "celsius"]
         currentIndex: 0 // Default to Fahrenheit
         onCurrentIndexChanged: {
             configRoot.cfg_temperatureUnit = currentText
