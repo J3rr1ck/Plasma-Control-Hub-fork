@@ -49,7 +49,7 @@ urlsimple="https://api.open-meteo.com/v1/forecast?"
 primerComplementoUrl="latitude=$latitude&longitude=$longitud"
 segundoComplementoUrl="&current=temperature_2m&daily=weather_code,temperature_2m_max,temperature_2m_min&&timezone=auto&start_date="
 tercerComplementoUrl="$3&end_date=$4"
-urlWeatherApi=$urlsimple$primerComplementoUrl$segundoComplementoUrl$tercerComplementoUrl
+urlWeatherApi="${urlsimple}${primerComplementoUrl}${segundoComplementoUrl}${tercerComplementoUrl}&temperature_unit=${5}"
 
 # Descargar datos JSON desde la API
 dateApi=$(curl -s "$urlWeatherApi")
@@ -58,14 +58,14 @@ fillterDateApi=$(echo "$dateApi" | sed 's/,/,\n/g')
 # estableciendo temperatura actual
  #filtrado
   #eliminadonArtefactos que obstaculizan la localizacion de la temperatura actual
-   primerFiltrado=$(echo "$fillterDateApi" | sed 's/"temperature_2m":"°F"},//g' | sed 's/"temperature_2m_max":"°F"//g' | sed 's/"temperature_2m_min":"°F"//g' | sed 's/"temperature_2m_max"//g' | sed 's/"temperature_2m_min"//g')
+   primerFiltrado=$(echo "$fillterDateApi" | sed 's/"temperature_2m":"°"},//g' | sed 's/"temperature_2m_max":"°"//g' | sed 's/"temperature_2m_min":"°"//g' | sed 's/"temperature_2m_max"//g' | sed 's/"temperature_2m_min"//g')
    segundoFiltrado=$(echo "$primerFiltrado" | grep "temperature_2m")
    eliminandotexto=$(echo "$segundoFiltrado" | sed 's/"temperature_2m"://g')
    temperatura=$(echo "$eliminandotexto" | sed 's/,//g' | sed 's/}//g')
 
 # opteniendo temperatura minima de hoy y los priximos 3 dias
  # Filtrado
-   mintemp04=$(echo "$fillterDateApi" | sed 's/"temperature_2m_min":"°F"},//g')
+   mintemp04=$(echo "$fillterDateApi" | sed 's/"temperature_2m_min":"°"},//g')
    mintemp03=$(echo "$mintemp04" | grep -A 3 "temperature_2m_min")
    mintemp02=$(echo "$mintemp03" | sed 's/"temperature_2m_min"//g')
    mintemp01=$(echo "$mintemp02" | sed 's/,//g' )
@@ -74,7 +74,7 @@ fillterDateApi=$(echo "$dateApi" | sed 's/,/,\n/g')
 
 # opteniendo temperatura maxima de hoy y los priximos 3 dias
  # Filtrado
-   maxtemp04=$(echo "$fillterDateApi" | sed 's/"temperature_2m_max":"°F"},//g' | sed 's/"temperature_2m_max":"°F",//g' | sed 's/"temperature_2m_min":"°F"},//g' | sed 's/"temperature_2m_min":"°F",//g')
+   maxtemp04=$(echo "$fillterDateApi" | sed 's/"temperature_2m_max":"°"},//g' | sed 's/"temperature_2m_max":"°",//g' | sed 's/"temperature_2m_min":""},//g' | sed 's/"temperature_2m_min":"°",//g')
    maxtemp03=$(echo "$maxtemp04" | grep -A 3 "temperature_2m_max")
    maxtemp02=$(echo "$maxtemp03" | sed 's/"temperature_2m_max"//g' )
    maxtemp01=$(echo "$maxtemp02" | sed 's/,//g')

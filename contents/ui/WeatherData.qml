@@ -301,65 +301,93 @@ Item {
         return "Language not supported";
     }
 }
-    property string command: "bash $HOME/.local/share/plasma/plasmoids/Plasma.Control.Hub/contents/ui/lib/getDataWeather.sh " + latitude + " " + longitud + " " + day + " " + therday + " " + plasmoid.configuration.temperatureUnit
+        property string command: "bash $HOME/.local/share/plasma/plasmoids/Plasma.Control.Hub/contents/ui/lib/getDataWeather.sh " + latitude + " " + longitud + " " + day + " " + therday + " " + plasmoid.configuration.temperatureUnit
+
     property string useCoordinatesIp: plasmoid.configuration.useCoordinatesIp
+
     property string latitudeC: plasmoid.configuration.latitudeC
+
     property string longitudeC: plasmoid.configuration.longitudeC
+
     property string latitude: (useCoordinatesIp === "true") ? "null" : (latitudeC === "0") ? "null" : latitudeC
+
     property string longitud: (useCoordinatesIp === "true") ? "null" : (longitudeC === "0") ? "null" : longitudeC
 
+
     property string datosweather: "0 0 0 0 0 0 0 0 0 51 0 0 0"
+
     property string day: (Qt.formatDateTime(new Date(), "yyyy-MM-dd"))
+
     property string therday: Qt.formatDateTime(new Date(new Date().getTime() + (3 * 24 * 60 * 60 * 1000)), "yyyy-MM-dd")
+
     property int numberOfDays: 3
+
     property string temperaturaActual: obtener(datosweather, 1)
+
     property string codeleng: ((Qt.locale().name)[0]+(Qt.locale().name)[1])
+
     property string codeweather: obtener(datosweather, 10)
+
     property string codeweatherTomorrow: obtener(datosweather, 11)
+
     property string codeweatherDayAftertomorrow: obtener(datosweather, 12)
+
     property string codeweatherTwoDaysAfterTomorrow: obtener(datosweather, 13)
+
     property string minweatherCurrent: obtener(datosweather, 2)
+
     property string maxweatherCurrent: obtener(datosweather, 6)
+
     property string minweatherTomorrow: obtener(datosweather, 3)
+
     property string maxweatherTomorrow: obtener(datosweather, 7)
+
     property string minweatherDayAftertomorrow: obtener(datosweather, 4)
+
     property string maxweatherDayAftertomorrow: obtener(datosweather, 8)
+
     property string minweatherTwoDaysAfterTomorrow: obtener(datosweather, 5)
+
     property string maxweatherTwoDaysAfterTomorrow: obtener(datosweather, 9)
+
     property string iconWeatherCurrent: asingicon()
+
 
     property string weathertext: weatherCodeText(codeleng, codeweather)
 
 
-
-
     Plasma5Support.DataSource {
-      id: executable
-      engine: "executable"
-      connectedSources: []
-      onNewData: {
+        id: executable
+        engine: "executable"
+        connectedSources: []
+        onNewData: {
             var exitCode = data["exit code"]
             var exitStatus = data["exit status"]
             var stdout = data["stdout"]
             var stderr = data["stderr"]
             exited(exitCode, exitStatus, stdout, stderr)
             disconnectSource(sourceName) // cmd finished
-                  }
-     function exec(cmd) {
-            connectSource(cmd)
-           }
-     signal exited(int exitCode, int exitStatus, string stdout, string stderr)
-       }
+        }
 
-   Connections {
-     target: executable
-     onExited: {
-                    datosweather = stdout
-                }
-          }
+        function exec(cmd) {
+            connectSource(cmd)
+        }
+
+        signal exited(int exitCode, int exitStatus, string stdout, string stderr)
+    }
+
+
+    Connections {
+        target: executable
+        onExited: {
+            datosweather = stdout
+        }
+    }
+
     function executeCommand() {
         executable.exec(command)
     }
+    
     function asingicon(x){
             let wmocodes = {
               0 : "clear",

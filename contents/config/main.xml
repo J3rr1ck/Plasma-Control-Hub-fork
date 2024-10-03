@@ -19,7 +19,7 @@
       <default>false</default>
       </entry>
     <entry name="temperatureUnit" type="string">
-      <default>Fahrenheit</default>
+      <default>fahrenheit</default>
     </entry>
   </group>
 </kcfg>
