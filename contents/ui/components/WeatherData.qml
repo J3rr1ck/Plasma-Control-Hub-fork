@@ -25,6 +25,15 @@ Item {
   property string longitudeC: plasmoid.configuration.longitudeC
   property string temperatureUnit: plasmoid.configuration.temperatureUnit
 
+  function convertTemperature(temp) {
+    if (temperatureUnit === "Celsius") {
+        return (temp - 32) * 5/9; // Convert Fahrenheit to Celsius
+    } else if (temperatureUnit === "Kelvin") {
+        return (temp - 32) * 5/9 + 273.15; // Convert Fahrenheit to Kelvin
+    }
+    return temp; // Default is Fahrenheit
+  }
+
   property string latitude: (useCoordinatesIp === "true") ? latitudeIP : (latitudeC === "0") ? latitudeIP : latitudeC
   property string longitud: (useCoordinatesIp === "true") ? longitudIP : (longitudeC === "0") ? longitudIP : longitudeC
 
@@ -42,20 +51,20 @@ Item {
   property string fiveIcon: asingicon(obtener(forecastWeather, 5))
   property string sixIcon: asingicon(obtener(forecastWeather, 6))
   property string sevenIcon: asingicon(obtener(forecastWeather, 7))
-  property int oneMax: fahrenheit(obtener(forecastWeather, 8))
-  property int twoMax: fahrenheit(obtener(forecastWeather, 9))
-  property int threeMax: fahrenheit(obtener(forecastWeather, 10))
-  property int fourMax: fahrenheit(obtener(forecastWeather, 11))
-  property int fiveMax: fahrenheit(obtener(forecastWeather, 12))
-  property int sixMax: fahrenheit(obtener(forecastWeather, 13))
-  property int sevenMax: fahrenheit(obtener(forecastWeather, 14))
-  property int oneMin: fahrenheit(obtener(forecastWeather, 14))
-  property int twoMin: fahrenheit(obtener(forecastWeather, 16))
-  property int threeMin: fahrenheit(obtener(forecastWeather, 17))
-  property int fourMin: fahrenheit(obtener(forecastWeather, 18))
-  property int fiveMin: fahrenheit(obtener(forecastWeather, 19))
-  property int sixMin: fahrenheit(obtener(forecastWeather, 20))
-  property int sevenMin: fahrenheit(obtener(forecastWeather, 21))
+  property int oneMax: convertTemperature(fahrenheit(obtener(forecastWeather, 8)))
+  property int twoMax: convertTemperature(fahrenheit(obtener(forecastWeather, 9)))
+  property int threeMax: convertTemperature(fahrenheit(obtener(forecastWeather, 10)))
+  property int fourMax: convertTemperature(fahrenheit(obtener(forecastWeather, 11)))
+  property int fiveMax: convertTemperature(fahrenheit(obtener(forecastWeather, 12)))
+  property int sixMax: convertTemperature(fahrenheit(obtener(forecastWeather, 13)))
+  property int sevenMax: convertTemperature(fahrenheit(obtener(forecastWeather, 14)))
+  property int oneMin: convertTemperature(fahrenheit(obtener(forecastWeather, 14)))
+  property int twoMin: convertTemperature(fahrenheit(obtener(forecastWeather, 16)))
+  property int threeMin: convertTemperature(fahrenheit(obtener(forecastWeather, 17)))
+  property int fourMin: convertTemperature(fahrenheit(obtener(forecastWeather, 18)))
+  property int fiveMin: convertTemperature(fahrenheit(obtener(forecastWeather, 19)))
+  property int sixMin: convertTemperature(fahrenheit(obtener(forecastWeather, 20)))
+  property int sevenMin: convertTemperature(fahrenheit(obtener(forecastWeather, 21)))
 
   property string day: (Qt.formatDateTime(new Date(), "yyyy-MM-dd"))
   property string therday: Qt.formatDateTime(new Date(new Date().getTime() + (numberOfDays * 24 * 60 * 60 * 1000)), "yyyy-MM-dd")
@@ -94,6 +103,14 @@ Item {
 
   Component.onCompleted: {
     updateWeather(2);
+  }
+
+  Connections {
+    target: configRoot
+    onConfigurationChanged: {
+        // Refresh or update the weather data to reflect the new temperature unit
+        updateWeather(2);
+    }
   }
 
   function uvIndexLevelAssignment(nivel) {

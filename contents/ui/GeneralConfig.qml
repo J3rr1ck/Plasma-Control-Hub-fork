@@ -13,7 +13,7 @@ Item {
     property alias cfg_latitudeC: latitude.text
     property alias cfg_longitudeC: longitude.text
     property alias cfg_useCoordinatesIp: autamateCoorde.checked
-
+   property alias cfg_temperatureUnit: temperatureUnitCombo.currentText
     property alias cfg_userAndAvaAveilable: usrCheck.checked
 
     ColumnLayout {
@@ -72,6 +72,21 @@ ColumnLayout {
     CheckBox {
         id: usrCheck
 
+    }
+}
+
+RowLayout {
+    Label {
+        text: i18n("Temperature Unit")
+    }
+    ComboBox {
+        id: temperatureUnitCombo
+        model: ["Fahrenheit", "Celsius", "Kelvin"]
+        currentIndex: 0 // Default to Fahrenheit
+        onCurrentIndexChanged: {
+            configRoot.cfg_temperatureUnit = currentText
+            configRoot.configurationChanged() // Emit signal
+        }
     }
 }
 

@@ -629,7 +629,7 @@ PlasmoidItem {
                                                 }
                                                 PlasmaComponents3.Label {
                                                     id: numenclatura2
-                                                    text: "°F"
+                                                    text: property string temperaturaActual: convertTemperature(obtener(datosweather, 1))
                                                     font.pixelSize: tem2.font.pixelSize*.7
                                                     anchors.top: tem.top
                                                     font.bold: true
