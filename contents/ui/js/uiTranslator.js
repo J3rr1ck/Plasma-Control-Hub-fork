@@ -5,7 +5,7 @@ function capitalizeFirstLetter(string) {
 function getTranslateInJs(language, word) {
     const translatesUi = {
         es: ["red", "bluetooth", "sin conexión", "configuración", "configuración del sistema", "apagado", "no molestar", "volumen", "pronóstico del tiempo"],
-        en: ["network", "bluetooth", "offline", "settings", "system settings", "off", "don't disturb", "volume", "weather forecast"],
+        en: ["Network", "Bluetooth", "Offline", "Settings", "System Settings", "Shut Down", "Do Not Disturb Mode", "Volume", "Weather"],
         fr: ["réseau", "bluetooth", "hors ligne", "paramètres", "paramètres du système", "éteindre", "ne pas déranger", "volume", "prévisions météorologiques"],
         it: ["rete", "bluetooth", "offline", "impostazioni", "impostazioni di sistema", "spento", "non disturbare", "volume", "previsioni del tempo"],
         pt: ["rede", "bluetooth", "offline", "configurações", "configurações do sistema", "desligado", "não incomodar", "volume", "previsão do tempo"],

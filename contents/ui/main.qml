@@ -629,7 +629,7 @@ PlasmoidItem {
                                                 }
                                                 PlasmaComponents3.Label {
                                                     id: numenclatura2
-                                                    text: "°C"
+                                                    text: "°F"
                                                     font.pixelSize: tem2.font.pixelSize*.7
                                                     anchors.top: tem.top
                                                     font.bold: true

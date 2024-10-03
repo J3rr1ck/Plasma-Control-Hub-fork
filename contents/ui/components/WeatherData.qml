@@ -15,12 +15,10 @@ Item {
   }
 
   function fahrenheit(temp) {
-    if (temperatureUnit == 0) {
-      return temp;
-    } else {
-      return Math.round((temp * 9 / 5) + 32);
-    }
-  }
+
+    return temp; // No conversion needed as the API now returns Fahrenheit
+
+}
 
   property string useCoordinatesIp: plasmoid.configuration.useCoordinatesIp
   property string latitudeC: plasmoid.configuration.latitudeC

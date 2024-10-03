@@ -1,5 +1,5 @@
 function GetForecastWeather(latitud, longitud, fechaInicio, fechaFin, callback) {
-     let url = `https://api.open-meteo.com/v1/forecast?latitude=${latitud}&longitude=${longitud}&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&start_date=${fechaInicio}&end_date=${fechaFin}`;
+     let url = `https://api.open-meteo.com/v1/forecast?latitude=${latitud}&longitude=${longitud}&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&start_date=${fechaInicio}&end_date=${fechaFin}&temperature_unit=fahrenheit`;
 
      let req = new XMLHttpRequest();
      req.open("GET", url, true);
